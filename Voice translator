@@ -1,0 +1,30 @@
+import googletrans
+import speech_recognition
+import gtts
+import playsound
+
+# Define input and output languages
+input_lang = "hi"  # Hindi as input language
+output_lang = "fr"  # French as output language
+
+# Initialize the recognizer
+recognizer = speech_recognition.Recognizer()
+
+# Capture speech and convert to text
+with speech_recognition.Microphone() as source:
+    print("Speak now")
+    voice = recognizer.listen(source)
+    text = recognizer.recognize_google(voice, language=input_lang)
+    print(text)
+
+# Translate the text to the output language
+translator = googletrans.Translator()
+translation = translator.translate(text, dest=output_lang)
+print(translation.text)
+
+# Convert the translated text to speech
+converted_audio = gtts.gTTS(translation.text, lang=output_lang)
+converted_audio.save("hello.mp3")
+
+# Play the converted audio
+playsound.playsound("hello.mp3")
