@@ -1,0 +1,23 @@
+import pyttsx3
+import PyPDF2
+
+# Open the PDF file
+file = open("C:/Users/Suma/Downloads/Major-phase2-2.pdf", mode="rb")
+
+# Use PdfReader instead of PdfFileReader
+pdf_reader = PyPDF2.PdfReader(file)
+
+# Get the number of pages
+pages = len(pdf_reader.pages)
+print(pages)
+
+# Initialize the pyttsx3 engine
+melo = pyttsx3.init()
+
+# Extract text from a specific page (e.g., page 6)
+page = pdf_reader.pages[6]
+text = page.extract_text()
+
+# Read the extracted text out loud
+melo.say(text)
+melo.runAndWait()
